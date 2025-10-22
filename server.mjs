@@ -43,6 +43,12 @@ app.use(log);
 //////////// Rate limiter ////////////////
 app.use('/api/', rateLimit({ windowMs: 1 * 60 * 1000, max: 100 }));
 
+// Routes
+app.use('/api/auth', authRoute);
+app.use('/api/products', productsRoute);
+app.use('/api/orders', ordersRoute);
+app.use('/api/users', usersRoute);
+
 // error Handling middleware
 app.use(globalErr);
 

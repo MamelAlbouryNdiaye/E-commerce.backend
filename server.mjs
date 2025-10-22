@@ -7,6 +7,8 @@ import cors from 'cors';
 import helmet from 'helmet';
 import passportConfig from './config/passport.mjs';
 import passport from 'passport';
+import log from './middlewares/loginMiddleware.mjs';
+import globalErr from './middlewares/globalErr.mjs';
 
 ////// setup  //////
 dotenv.config();
@@ -34,8 +36,12 @@ app.use(cors({
 app.use(passport.initialize());
 passportConfig(passport); 
 
+///////////  logger middleware ////////////
+app.use(log);
 
 
+// error Handling middleware
+app.use(globalErr);
 
 
 

@@ -5,6 +5,8 @@ import { fileURLToPath } from 'url';
 import path from 'path';
 import cors from 'cors';
 import helmet from 'helmet';
+import passportConfig from './config/passport.mjs';
+import passport from 'passport';
 
 ////// setup  //////
 dotenv.config();
@@ -27,6 +29,10 @@ app.use(cors({
   origin: process.env.CLIENT_ORIGIN || 'http://localhost:3020',
   credentials: true
 }));
+
+////////// init passport  //////////
+app.use(passport.initialize());
+passportConfig(passport); 
 
 
 

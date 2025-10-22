@@ -9,7 +9,11 @@ import passportConfig from './config/passport.mjs';
 import passport from 'passport';
 import log from './middlewares/loginMiddleware.mjs';
 import globalErr from './middlewares/globalErr.mjs';
-
+import authRoute from './routes/auth.mjs';
+import ordersRoute from './routes/orders.mjs';
+import productsRoute from './routes/products.mjs';
+import usersRoute from './routes/users.mjs';
+import passportConfig from './config/passport.mjs';
 ////// setup  //////
 dotenv.config();
 const app = express();

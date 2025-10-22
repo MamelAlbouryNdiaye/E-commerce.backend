@@ -14,6 +14,7 @@ import ordersRoute from './routes/orders.mjs';
 import productsRoute from './routes/products.mjs';
 import usersRoute from './routes/users.mjs';
 import passportConfig from './config/passport.mjs';
+
 ////// setup  //////
 dotenv.config();
 const app = express();
@@ -57,10 +58,11 @@ app.use('/api/users', usersRoute);
 app.use(globalErr);
 
 
-
-
-
-
+///////////// In production serve ---> the frontend ////////
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../frontend/build')));
+  app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, '../frontend', 'build', 'index.html')));
+}
 
 
 app.listen(port, () => console.log(`Server running on ${port}`));

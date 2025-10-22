@@ -63,3 +63,23 @@ Backend architecture prepared for client-side cart persistence.
 ### Frontend and Backend communication
 
 ![Communication](./images/F&B_communication.png)
+
+## Results
+
+### Register Page
+![Results](./capstone/register.png)
+
+### Login Page
+
+![Results](./capstone/login.png)
+
+### Home Page
+
+![Results](./capstone/Home.png)
+
+### Cart Page
+
+![Results](./capstone/Cart.png)
+
+
+

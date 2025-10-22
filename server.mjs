@@ -1,19 +1,19 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import connectDB from './config/db.mjs';
-import { fileURLToPath } from 'url';
-import path from 'path';
-import cors from 'cors';
-import helmet from 'helmet';
-import passportConfig from './config/passport.mjs';
-import passport from 'passport';
-import log from './middlewares/loginMiddleware.mjs';
-import globalErr from './middlewares/globalErr.mjs';
-import authRoute from './routes/auth.mjs';
-import ordersRoute from './routes/orders.mjs';
-import productsRoute from './routes/products.mjs';
-import usersRoute from './routes/users.mjs';
-import passportConfig from './config/passport.mjs';
+import express from "express";
+import dotenv from "dotenv";
+import connectDB from "./config/db.mjs";
+import { fileURLToPath } from "url";
+import path from "path";
+import cors from "cors";
+import helmet from "helmet";
+import passportConfig from "./config/passport.mjs";
+import passport from "passport";
+import log from "./middlewares/loginMiddleware.mjs";
+import globalErr from "./middlewares/globalErr.mjs";
+import authRoute from "./routes/auth.mjs";
+import ordersRoute from "./routes/orders.mjs";
+import productsRoute from "./routes/products.mjs";
+import usersRoute from "./routes/users.mjs";
+import passportConfig from "./config/passport.mjs";
 
 ////// setup  //////
 dotenv.config();
@@ -32,37 +32,38 @@ app.use(helmet());
 app.use(express.json());
 
 /////////// CORS: allow only dev frontend /////////////////
-app.use(cors({
-  origin: process.env.CLIENT_ORIGIN || 'http://localhost:3020',
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: process.env.CLIENT_ORIGIN || "http://localhost:3020",
+    credentials: true,
+  })
+);
 
 ////////// init passport  //////////
 app.use(passport.initialize());
-passportConfig(passport); 
+passportConfig(passport);
 
 ///////////  logger middleware ////////////
 app.use(log);
 
-
 //////////// Rate limiter ////////////////
-app.use('/api/', rateLimit({ windowMs: 1 * 60 * 1000, max: 100 }));
+app.use("/api/", rateLimit({ windowMs: 1 * 60 * 1000, max: 100 }));
 
 // Routes
-app.use('/api/auth', authRoute);
-app.use('/api/products', productsRoute);
-app.use('/api/orders', ordersRoute);
-app.use('/api/users', usersRoute);
+app.use("/api/auth", authRoute);
+app.use("/api/products", productsRoute);
+app.use("/api/orders", ordersRoute);
+app.use("/api/users", usersRoute);
 
 // error Handling middleware
 app.use(globalErr);
 
-
 ///////////// In production serve ---> the frontend ////////
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../frontend/build')));
-  app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, '../frontend', 'build', 'index.html')));
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../frontend/build")));
+  app.get("*", (req, res) =>
+    res.sendFile(path.resolve(__dirname, "../frontend", "build", "index.html"))
+  );
 }
-
 
 app.listen(port, () => console.log(`Server running on ${port}`));

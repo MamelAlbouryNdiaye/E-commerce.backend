@@ -40,6 +40,9 @@ passportConfig(passport);
 app.use(log);
 
 
+//////////// Rate limiter ////////////////
+app.use('/api/', rateLimit({ windowMs: 1 * 60 * 1000, max: 100 }));
+
 // error Handling middleware
 app.use(globalErr);
 
